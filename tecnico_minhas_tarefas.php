@@ -8,13 +8,18 @@
 </head>
 <body>
     <header>
-        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark"><div class="container">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+     <nav class="navbar navbar-expand-lg mb-4 shadow-sm" data-bs-theme="dark" style="background-color: #1a237e; border-bottom: 1px solid #283593;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">SGM Técnico | João Técnico</a>
-       <a href="api/logout.php"<button type="button"class="btn btn-outline-light" >Sair</button></a>
+        <span class="navbar-brand mb-0 h1">SGM | Gestão Administrativa</span>
+        
+        <div class="d-flex align-items-center">
+            <span class="navbar-text me-3 text-white">
+                <i class="bi bi-person-circle me-1"></i> João Técnico
+            </span>
+            <a href="api/logout.php" class="btn btn-outline-light btn-sm">Sair</a>
+        </div>
     </div>
-  </nav>
+</nav>
 </div></header>
 <main>
     <div><h1>Minha fila de trabalho</h1></div>

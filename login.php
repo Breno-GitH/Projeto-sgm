@@ -22,7 +22,7 @@
                 <label>Senha</label>
                 <input type="password" id="senha" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            <button type="submit" class="btn btn-primary w-100" style="background-color: #1a237e;">Entrar</button>
             <div id="mensagem" class="mt-3 text-center text-danger small"></div>
         </form>
     </div>
