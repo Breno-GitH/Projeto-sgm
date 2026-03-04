@@ -50,8 +50,14 @@ Gerenciar todos os chamados</button></a>
   <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
   <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
 </svg>
- <i class="bi bi-geo-alt"></i>
-Configurar Ambientes</button>
+ <a href="config_ambientes.php"><i class="bi bi-geo-alt"></i>
+Configurar Ambientes</button></a>
+ <button type="button" class="btn btn-outline-warning"><a href="config_blocos.php"><i class="bi bi-geo-alt"></i>
+Configurar Blocos</button></button></a>
+<button type="button" class="btn btn-outline-danger"><a href="config_tipos_servico.php"><i class="bi bi-geo-alt"></i>
+Configurar Tipos de serviço</button></button></a>
+<button type="button" class="btn btn-outline-success"><a href="config_usuarios.php"><i class="bi bi-geo-alt"></i>
+Configurar Usuarios</button></button></a>
 </footer>
 <script src=https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js</script>
 </body>

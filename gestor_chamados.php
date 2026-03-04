@@ -61,16 +61,16 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_perfil'] !== 'gestor') {
     </div>
 <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body p-0 text-center bg-dark">
-                <img src="" id="imgModal" class="img-fluid">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <div class="modal-content">
+                <div class="modal-body p-0 text-center bg-dark">
+                    <img src="" id="imgModal" class="img-fluid">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script&gt;
 <script>

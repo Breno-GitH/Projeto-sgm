@@ -9,7 +9,6 @@ if(!isset($_SESSION['user_id']) || $_SESSION['user_perfil'] !== 'solicitante'){
 
 $id_usuario = $_SESSION['user_id'];
 
-// SQL MELHORADO: Busca o chamado e tenta trazer o caminho da foto se ele existir (LEFT JOIN)
 $sql = "SELECT c.id_chamado, c.descricao_problema, c.status, c.data_abertura, a.nome as nome_ambiente, ca.caminho_arquivo
         FROM chamados c
         JOIN ambientes a ON c.id_ambiente = a.id_ambiente
