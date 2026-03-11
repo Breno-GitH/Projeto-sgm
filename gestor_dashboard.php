@@ -13,7 +13,7 @@
     <span class="navbar-brand mb-0 h1 text-white">SGM | Gestão Administrativa</span>
     
     <div class="d-flex align-items-center ms-auto">
-        <a class="navbar-brand fs-6 me-3" href="#">SGM Técnico | João Gestor</a>
+        <a class="navbar-brand fs-6 me-3" href="#">SGM Gestor | João Gestor</a>
         <a href="api/logout.php" class="btn btn-outline-light btn-sm">Sair</a>
     </div>
   </div>
