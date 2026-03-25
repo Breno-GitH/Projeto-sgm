@@ -22,7 +22,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Tipos de Serviço</h1>
             
-            <a href="config_criar_tipo.php" class="btn btn-success">+ Novo Tipo</a>
+            <a href="config_criar_tipo_servico.php" class="btn btn-success">+ Novo Tipo</a>
         </div>
         <table class="table table-hover border shadow-sm">
             <thead class="table-light">

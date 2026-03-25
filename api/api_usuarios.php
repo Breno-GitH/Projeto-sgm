@@ -21,7 +21,7 @@ switch ($method) {
         echo json_encode(["success" => true, "data" => $usuarios]);
         break;
 
-    case 'POST':
+  case 'POST':
         $json = file_get_contents("php://input");
         $data = json_decode($json);
         if (!isset($data->email) || !isset($data->senha)) {
@@ -31,13 +31,13 @@ switch ($method) {
         $nome = $conn->real_escape_string(trim($data->nome));
         $email = $conn->real_escape_string(trim($data->email));
         $perfil = $conn->real_escape_string($data->perfil);
-        $senha = password_hash($data->senha, PASSWORD_DEFAULT);
-
-        $sql = "INSERT INTO usuarios (nome, email, senha, perfil) VALUES ('$nome', '$email', '$senha', '$perfil')";
+        $senha = password_hash($data->senha, PASSWORD_DEFAULT);    
+        $sql = "INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES ('$nome', '$email', '$senha', '$perfil')";
+        
         if ($conn->query($sql) === TRUE) {
             echo json_encode(["success" => true, "message" => "Usuário criado!"]);
         } else {
-            echo json_encode(["success" => false, "message" => "Erro: " . $conn->error]);
+            echo json_encode(["success" => false, "message" => "Erro no Banco: " . $conn->error]);
         }
         break;
 
@@ -49,15 +49,19 @@ switch ($method) {
         $email = $conn->real_escape_string(trim($data->email));
         $perfil = $conn->real_escape_string($data->perfil);
 
-        // Se a senha foi enviada, atualiza ela também
         if (!empty($data->senha)) {
             $senha = password_hash($data->senha, PASSWORD_DEFAULT);
-            $sql = "UPDATE usuarios SET nome='$nome', email='$email', perfil='$perfil', senha='$senha' WHERE id_usuario=$id_usuario";
+           
+            $sql = "UPDATE usuarios SET nome='$nome', email='$email', perfil='$perfil', senha_hash='$senha' WHERE id_usuario=$id_usuario";
         } else {
             $sql = "UPDATE usuarios SET nome='$nome', email='$email', perfil='$perfil' WHERE id_usuario=$id_usuario";
         }
 
-        if($conn->query($sql) === TRUE) echo json_encode(["success" => true, "message" => "Usuário atualizado!"]);
+        if($conn->query($sql) === TRUE) {
+            echo json_encode(["success" => true, "message" => "Usuário atualizado!"]);
+        } else {
+            echo json_encode(["success" => false, "message" => "Erro ao atualizar: " . $conn->error]);
+        }
         break;
 
     case 'DELETE':
