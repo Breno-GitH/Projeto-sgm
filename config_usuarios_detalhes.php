@@ -2,47 +2,81 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Chamados</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <title>SGM - Editar Usuário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
-<main class="container-fluid py-4">
-    <div class="mb-4">
-        <a href="config_usuarios.php" class="btn btn-outline-secondary">Voltar</a>
-    </div>  
-       
-     <section class="col-lg-8 col-md-7">
-            <div class="card shadow-sm h-100 ">
-                <div class="card-header text-white px-4 py-3" style="background: linear-gradient(45deg, #1a237e, #283593); border-bottom: 2px solid #283593;">
-    <h5 class="mb-0 d-flex align-items-center">
-        <i class="bi bi-person-badge-fill me-2"></i> Editar Usuarios
-    </h5>
-</div>
-     <div class="card-body">
-                    <form id="formAtribuir"> <div class="mb-3">
-                            <label for="selectAmbiente" class="form-label">Usuarios</label>
-                            <select class="form-select" id="selectAmbiente" required>
-                                <option value="">Carregando usuarios...</option>
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header text-white p-3" style="background: #1a237e;">
+                    <h5 class="mb-0">Editar Perfil do Usuário</h5>
+                </div>
+                <div class="card-body p-4 bg-white">
+                    <form id="formUsuario">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nome</label>
+                            <input type="text" id="nome" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">E-mail</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Perfil</label>
+                            <select id="perfil" class="form-select">
+                                <option value="solicitante">Solicitante</option>
+                                <option value="tecnico">Técnico</option>
+                                <option value="gestor">Gestor</option>
                             </select>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <label for="prioridade" class="form-label">Novo nome</label>
-                                 <input type="form" name="id_Novo-Ambiente" class="form-select">
-</div>
-   <hr>
-                        <button type="submit" class="btn btn-lg w-100 py-3 mt-3 text-white shadow border-0 rounded-3 d-flex align-items-center justify-content-center" 
-        id="btnConfirmar" 
-        style="background: linear-gradient(45deg, #1a237e, #283593); transition: transform 0.2s, background 0.3s;">
-    <i class="bi bi-check-circle-fill me-2"></i> 
-    <strong>Confirmar Atribuição</strong>
-</button>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-danger">Nova Senha (deixe em branco para não alterar)</label>
+                            <input type="password" id="senha" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 py-2 fw-bold">Salvar Alterações</button>
+                        <a href="config_usuarios.php" class="btn btn-link w-100 mt-2 text-muted">Voltar</a>
                     </form>
                 </div>
             </div>
-      
-        </section>
+        </div>
     </div>
 </main>
+
+<script>
+const idUser = new URLSearchParams(window.location.search).get('id');
+
+window.onload = async () => {
+    const res = await fetch('api/api_usuarios.php');
+    const result = await res.json();
+    const u = result.data.find(user => user.id_usuario == idUser);
+    if(u) {
+        document.getElementById('nome').value = u.nome;
+        document.getElementById('email').value = u.email;
+        document.getElementById('perfil').value = u.perfil;
+    }
+};
+
+document.getElementById('formUsuario').onsubmit = async (e) => {
+    e.preventDefault();
+    const dados = {
+        id_usuario: idUser,
+        nome: document.getElementById('nome').value,
+        email: document.getElementById('email').value,
+        perfil: document.getElementById('perfil').value,
+        senha: document.getElementById('senha').value // A API ignora se estiver vazio
+    };
+
+    const res = await fetch('api/api_usuarios.php', {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(dados)
+    });
+    const result = await res.json();
+    alert(result.message);
+    if(result.success) window.location.href = 'config_usuarios.php';
+};
+</script>
+</body>
+</html>

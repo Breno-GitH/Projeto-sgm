@@ -12,6 +12,10 @@
             <div class="container">
                 <a class="navbar-brand" href="#">SGM - Gerenciamento de ambientes</a>
                 <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center">
+                <a href="gestor_dashboard.php" class="btn btn-outline-light btn-sm me-3">
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </a>
                     <span class="text-white">Olá, <?php echo $_SESSION['user_nome'] ?? 'Usuário'; ?></span>
                     <a href="api/logout.php" class="btn btn-outline-light btn-sm">Sair</a>
                 </div>
@@ -81,7 +85,7 @@
     async function excluirAmbiente(id) {
         if (confirm('Tem certeza que deseja excluir este ambiente?')) {
             try {
-                const response = await fetch('api/ambientes.php', {
+                const response = await fetch('api/api_ambientes.php', {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id_ambiente: id })

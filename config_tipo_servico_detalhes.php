@@ -2,47 +2,53 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Chamados</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <title>SGM - Editar Tipo de Serviço</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
-<main class="container-fluid py-4">
-    <div class="mb-4">
-        <a href="config_blocos.php" class="btn btn-outline-secondary">Voltar</a>
-    </div>  
-       
-     <section class="col-lg-8 col-md-7">
-            <div class="card shadow-sm h-100 ">
-                <div class="card-header text-white px-4 py-3" style="background: linear-gradient(45deg, #1a237e, #283593); border-bottom: 2px solid #283593;">
-    <h5 class="mb-0 d-flex align-items-center">
-        <i class="bi bi-person-badge-fill me-2"></i> Editar tipos de serviço
-    </h5>
-</div>
-     <div class="card-body">
-                    <form id="formAtribuir"> <div class="mb-3">
-                            <label for="selectAmbiente" class="form-label">Tipos de servico</label>
-                            <select class="form-select" id="selectAmbiente" required>
-                                <option value="">Carregando tipos de servico...</option>
-                            </select>
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header text-white" style="background: #1a237e;">
+                    <h5 class="mb-0">Editar Tipo de Serviço</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form id="formEditar">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Descrição</label>
+                            <input type="text" id="nome" class="form-control" required>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <label for="prioridade" class="form-label">Novo nome</label>
-                                 <input type="form" name="id_Novo-Ambiente" class="form-select">
-</div>
-   <hr>
-                        <button type="submit" class="btn btn-lg w-100 py-3 mt-3 text-white shadow border-0 rounded-3 d-flex align-items-center justify-content-center" 
-        id="btnConfirmar" 
-        style="background: linear-gradient(45deg, #1a237e, #283593); transition: transform 0.2s, background 0.3s;">
-    <i class="bi bi-check-circle-fill me-2"></i> 
-    <strong>Confirmar Atribuição</strong>
-</button>
+                        <button type="submit" class="btn btn-primary w-100">Atualizar</button>
+                        <a href="config_tipos_servico.php" class="btn btn-link w-100 mt-2 text-decoration-none">Cancelar</a>
                     </form>
                 </div>
             </div>
-      
-        </section>
+        </div>
     </div>
 </main>
+
+<script>
+const idTipo = new URLSearchParams(window.location.search).get('id');
+
+window.onload = async () => {
+    const res = await fetch('api/api_tipos_servico.php');
+    const result = await res.json();
+    const tipo = result.data.find(t => t.id_tipo == idTipo);
+    if(tipo) document.getElementById('nome').value = tipo.nome;
+};
+
+document.getElementById('formEditar').onsubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch('api/api_tipos_servico.php', {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id_tipo: idTipo, nome: document.getElementById('nome').value })
+    });
+    const result = await res.json();
+    alert(result.message);
+    if(result.success) window.location.href = 'config_tipos_servico.php';
+};
+</script>
+</body>
+</html>

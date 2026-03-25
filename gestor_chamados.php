@@ -18,9 +18,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_perfil'] !== 'gestor') {
         <div class="container">
             <a class="navbar-brand" href="gestor_dashboard.php">SGM Admin</a>
             <div class="navbar-nav ms-auto">
+                  <a class="nav-link active" href="gestor_dashboard.php">Voltar</a>
                 <a class="nav-link active" href="gestor_chamados.php">Chamados</a>
-                <a class="nav-link" href="gestor_locais.php">Locais</a>
-                <a class="nav-link" href="api/logout.php">Sair</a>
+                <a class="nav-link active" href="gestor_locais.php">Locais</a>
+                <a class="nav-link active" href="api/logout.php">Sair</a>
             </div>
         </div>
     </nav>

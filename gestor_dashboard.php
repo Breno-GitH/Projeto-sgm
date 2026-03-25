@@ -3,62 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <title>SGM - Dashboard Gestor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .card-stat {
+            border: none;
+            border-radius: 15px;
+            transition: transform 0.2s;
+        }
+        .card-stat:hover {
+            transform: translateY(-5px);
+        }
+        .btn-config {
+            padding: 20px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        .btn-config:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        a { text-decoration: none; }
+    </style>
 </head>
-<body>
+<body class="bg-light">
+
     <header>
-   <nav class="navbar navbar-expand-lg navbar-dark mb-4 shadow-sm" style="background-color: #1a237e;">
-  <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1 text-white">SGM | Gestão Administrativa</span>
-    
-    <div class="d-flex align-items-center ms-auto">
-        <a class="navbar-brand fs-6 me-3" href="#">SGM Gestor | João Gestor</a>
-        <a href="api/logout.php" class="btn btn-outline-light btn-sm">Sair</a>
-    </div>
-  </div>
-</nav>
-</nav></header>
-<main><div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Novas Solicitações</h5>
-    <p class="card-text">0</p>
-  </div>
-</div>
-<div class="card text-bg-warning mb-3" style="max-width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Em atendimento</h5>
-    <p class="card-text">0</p>
-  </div>
-</div>
-<div class="card text-bg-danger mb-3" style="max-width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Críticos / Urgentes</h5>
-    <p class="card-text">0</p>
-  </div>
-</div>
-</main>
-<footer><a href="gestor_chamados.php"><button type="button" class="btn btn-secondary"
- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-</svg>
-<i class="bi bi-list"></i>
-Gerenciar todos os chamados</button></a>
-<button type="button" class="btn btn-outline-info">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-  <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-  <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-</svg>
- <a href="config_ambientes.php"><i class="bi bi-geo-alt"></i>
-Configurar Ambientes</button></a>
- <button type="button" class="btn btn-outline-warning"><a href="config_blocos.php"><i class="bi bi-geo-alt"></i>
-Configurar Blocos</button></button></a>
-<button type="button" class="btn btn-outline-danger"><a href="config_tipos_servico.php"><i class="bi bi-geo-alt"></i>
-Configurar Tipos de serviço</button></button></a>
-<button type="button" class="btn btn-outline-success"><a href="config_usuarios.php"><i class="bi bi-geo-alt"></i>
-Configurar Usuarios</button></button></a>
-</footer>
-<script src=https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js</script>
+        <nav class="navbar navbar-expand-lg navbar-dark mb-4 shadow-sm" style="background: linear-gradient(45deg, #1a237e, #283593);">
+            <div class="container">
+                <span class="navbar-brand mb-0 h1">SGM | Painel do Gestor</span>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-white-50">Olá, <strong><?php echo $_SESSION['user_nome'] ?? 'João Gestor'; ?></strong></span>
+                    <a href="api/logout.php" class="btn btn-outline-light btn-sm">Sair</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h4 class="mb-3 text-secondary">Visão Geral</h4>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card card-stat bg-primary text-white shadow">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="text-uppercase small">Novos Chamados</h6>
+                                <h2 class="mb-0">0</h2>
+                            </div>
+                            <i class="bi bi-envelope-paper fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-stat bg-warning text-dark shadow">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="text-uppercase small">Em Atendimento</h6>
+                                <h2 class="mb-0">0</h2>
+                            </div>
+                            <i class="bi bi-tools fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-stat bg-danger text-white shadow">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="text-uppercase small">Críticos/Urgentes</h6>
+                                <h2 class="mb-0">0</h2>
+                            </div>
+                            <i class="bi bi-exclamation-triangle fs-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="mb-3 text-secondary">Ferramentas de Configuração</h4>
+        <div class="row g-3">
+            <div class="col-md-12">
+                <a href="gestor_chamados.php" class="btn btn-dark w-100 p-4 mb-3 rounded-3 d-flex align-items-center justify-content-center gap-2 shadow-sm">
+                    <i class="bi bi-list-check fs-4"></i> GERENCIAR TODOS OS CHAMADOS
+                </a>
+            </div>
+            
+            <div class="col-6 col-md-3">
+                <a href="config_ambientes.php" class="btn btn-outline-primary btn-config w-100">
+                    <i class="bi bi-geo-alt fs-2"></i> Ambientes
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="config_blocos.php" class="btn btn-outline-secondary btn-config w-100">
+                    <i class="bi bi-building fs-2"></i> Blocos
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="config_tipos_servico.php" class="btn btn-outline-info btn-config w-100">
+                    <i class="bi bi-wrench-adjustable fs-2"></i> Tipos de Serviço
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="config_usuarios.php" class="btn btn-outline-success btn-config w-100">
+                    <i class="bi bi-people fs-2"></i> Usuários
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
