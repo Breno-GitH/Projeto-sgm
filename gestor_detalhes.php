@@ -78,30 +78,38 @@ const chamadoId = urlParams.get('id');
 async function carregarDados() {
     if (!chamadoId) {
         console.error("ID do chamado não encontrado na URL.");
-        document.getElementById('detalhesChamado').innerHTML = '<p class="text-danger">Erro: ID do chamado não especificado na URL.</p>';
+        document.getElementById('detalhesChamado').innerHTML = '<p class="text-danger">Erro: ID do chamado não especificado.</p>';
         return;
     }
 
     try {
-       
-        const resTec = await fetch('api/usuarios.php');
+        // 1. CARREGAR TÉCNICOS DA API
+        const resTec = await fetch('api/api_usuarios.php');
         if (!resTec.ok) throw new Error("Erro ao buscar técnicos");
         
-        const tecnicos = await resTec.json();
+        const respostaTec = await resTec.json();
         const select = document.getElementById('selectTecnico');
         
-        if (select) {
+        if (select && respostaTec.success) {
             select.innerHTML = '<option value="">Selecione um técnico...</option>';
-            tecnicos.forEach(t => {
+            
+            // Filtra apenas os usuários que são do perfil 'tecnico'
+            const apenasTecnicos = respostaTec.data.filter(u => u.perfil === 'tecnico');
+            
+            apenasTecnicos.forEach(t => {
                 const option = document.createElement('option');
                 option.value = t.id_usuario;
                 option.textContent = t.nome;
                 select.appendChild(option);
             });
+        } else if (!respostaTec.success) {
+            console.error("Erro da API de usuários:", respostaTec.message);
         }
 
-        
+        // 2. CARREGAR DADOS DO CHAMADO ESPECÍFICO
         const resChamado = await fetch(`api/chamados.php?id=${chamadoId}`);
+        if (!resChamado.ok) throw new Error("Erro ao buscar dados do chamado");
+        
         const c = await resChamado.json();
 
         if (c) {
@@ -114,22 +122,22 @@ async function carregarDados() {
                 <div id="fotosContainer"></div>
             `;
 
-           
+            // Preenche os campos do formulário com os dados atuais (se existirem)
             if(c.id_tecnico) document.getElementById('selectTecnico').value = c.id_tecnico;
             if(c.prioridade) document.getElementById('prioridade').value = c.prioridade;
             if(c.data_previsao_conclusao) document.getElementById('data_prevista').value = c.data_previsao_conclusao;
         }
 
-        
-
     } catch (error) {
         console.error("Erro na requisição:", error);
+        document.getElementById('detalhesChamado').innerHTML = `<p class="text-danger">Erro técnico ao carregar dados. Verifique o console.</p>`;
     }
-    
+}
+
+// 3. EVENTO DE SUBMISSÃO DO FORMULÁRIO (ATRIBUIR)
 document.getElementById('formAtribuir').addEventListener('submit', async (e) => {
     e.preventDefault(); 
 
-    
     const dados = {
         id_chamado: chamadoId,
         id_tecnico: document.getElementById('selectTecnico').value,
@@ -138,7 +146,6 @@ document.getElementById('formAtribuir').addEventListener('submit', async (e) => 
     };
 
     try {
-       
         const response = await fetch('api/atribuir_chamado.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -149,17 +156,17 @@ document.getElementById('formAtribuir').addEventListener('submit', async (e) => 
 
         if (resultado.success) {
             alert("Sucesso: Chamado atribuído!");
-            
             window.location.href = 'gestor_chamados.php'; 
         } else {
             alert("Erro ao salvar: " + resultado.message);
         }
     } catch (error) {
-        console.error("Erro na requisição:", error);
+        console.error("Erro na requisição de salvamento:", error);
         alert("Ocorreu um erro técnico ao tentar salvar.");
     }
 });
-}
+
+// Inicializa o carregamento ao abrir a página
 carregarDados();
 </script>
 

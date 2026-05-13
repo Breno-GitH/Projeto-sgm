@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_perfil'] !== 'gestor') {
     <meta charset="UTF-8">
     <title>SGM - Gestão de Chamados</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css&quot; rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"&gt; 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"&gt; >
 </head>
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark mb-4 shadow-sm" style="background-color: #1a237e;">
@@ -84,30 +84,29 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_perfil'] !== 'gestor') {
         const coresPrioridade = { 'urgente': 'text-danger', 'alta': 'text-warning', 'media': 'text-primary', 'baixa': 'text-secondary' };
         const coresStatus = { 'aberto': 'bg-secondary', 'em_execucao': 'bg-warning', 'concluido': 'bg-success', 'fechado': 'bg-dark' };
 
-        async function carregarChamados(status = '') {
-            const res = await fetch(`api/gestor_chamados.php?status=${status}`);
-            const chamados = await res.json();
-            const body = document.getElementById('tabelaGeral');
+     async function carregarChamados(status = '') {
+    const res = await fetch(`api/gestor_chamados.php?status=${status}`);
+    const chamados = await res.json();
+    const body = document.getElementById('tabelaGeral');
 
-            body.innerHTML = chamados.map(c => `
-                <tr>
-                    <td>#${c.id}</td>
-                    <td>${c.solicitante}</td>
-                    <td>
-                        <small class="text-muted">${c.bloco_nome}</small><br>
-                        <strong>${c.ambiente}</strong>
-                    </td>
-                    <td><i class="bi bi-circle-fill ${coresPrioridade[c.prioridade]} me-1"></i> ${c.prioridade.toUpperCase()}</td>
-                    <td>${c.tecnico || '<em class="text-muted">Não atribuído</em>'}</td>
-                    <td><span class="badge ${coresStatus[c.status]}">${c.status.replace('_', ' ').toUpperCase()}</span></td>
-                    <td>
-                        <a href="gestor_detalhes.php?id=${c.id_chamado}" class="btn btn-sm btn-primary">
-                            <i class="bi bi-eye"></i> Gerenciar
-                        </a>
-                    </td>
-                </tr>
-            `).join('');
-        }
+    body.innerHTML = chamados.map(c => `
+        <tr>
+            <td>#${c.id}</td> <td>${c.solicitante}</td>
+            <td>
+                <small class="text-muted">${c.bloco_nome}</small><br>
+                <strong>${c.ambiente}</strong>
+            </td>
+            <td><i class="bi bi-circle-fill ${coresPrioridade[c.prioridade]} me-1"></i> ${c.prioridade ? c.prioridade.toUpperCase() : 'N/A'}</td>
+            <td>${c.tecnico || '<em class="text-muted">Não atribuído</em>'}</td>
+            <td><span class="badge ${coresStatus[c.status]}">${c.status.replace('_', ' ').toUpperCase()}</span></td>
+            <td>
+                <a href="gestor_detalhes.php?id=${c.id}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-eye"></i> Gerenciar
+                </a>
+            </td>
+        </tr>
+    `).join('');
+}
 
         carregarChamados();
     </script>
