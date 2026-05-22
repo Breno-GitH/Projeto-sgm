@@ -353,8 +353,8 @@
                                             Novos Chamados
                                         </h6>
 
-                                        <h1 class="fw-bold mb-0">
-                                            0
+                                        <h1 class="fw-bold mb-0" id="novos-chamados">
+                                            -
                                         </h1>
 
                                     </div>
@@ -384,8 +384,8 @@
                                             Em Atendimento
                                         </h6>
 
-                                        <h1 class="fw-bold mb-0">
-                                            0
+                                        <h1 class="fw-bold mb-0" id="em-atendimento">
+                                            -
                                         </h1>
 
                                     </div>
@@ -415,8 +415,8 @@
                                             Críticos/Urgentes
                                         </h6>
 
-                                        <h1 class="fw-bold mb-0">
-                                            0
+                                        <h1 class="fw-bold mb-0" id="urgentes">
+                                            -
                                         </h1>
 
                                     </div>
@@ -450,6 +450,34 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Carregar dados da Visão Geral
+        async function carregarDashboard() {
+            try {
+                const response = await fetch('api/dashboard_gestor.php');
+                const data = await response.json();
+
+                console.log('Resposta da API:', data);
+
+                if (data.success === false) {
+                    console.error('Erro da API:', data.message);
+                    return;
+                }
+
+                document.getElementById('novos-chamados').textContent = data.abertos || 0;
+                document.getElementById('em-atendimento').textContent = data.em_execucao || 0;
+                document.getElementById('urgentes').textContent = data.urgentes || 0;
+                
+                console.log('Dashboard atualizado com sucesso');
+            } catch (error) {
+                console.error('Erro ao carregar dashboard:', error);
+            }
+        }
+
+        // Carregar dados ao iniciar a página
+        document.addEventListener('DOMContentLoaded', carregarDashboard);
+    </script>
 
 </body>
 
