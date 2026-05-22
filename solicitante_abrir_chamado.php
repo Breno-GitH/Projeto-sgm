@@ -123,6 +123,19 @@ if(!isset($_SESSION['user_id']) || $_SESSION['user_perfil'] !== 'solicitante'){
             const btn = document.getElementById('btnEnviar');
             const originalText = btn.innerText;
             
+            // Validar dados antes de enviar
+            const id_bloco = document.getElementById('bloco').value;
+            const id_ambiente = document.getElementById('sala').value;
+            const id_tipo = document.getElementById('tipo').value;
+            const descricao = document.getElementById('descricao').value;
+            
+            console.log("Dados do formulário:", {id_bloco, id_ambiente, id_tipo, descricao});
+            
+            if (!id_bloco || !id_ambiente || !id_tipo || !descricao) {
+                alert("⚠️ Preencha todos os campos obrigatórios!");
+                return;
+            }
+            
             btn.disabled = true;
             btn.innerText = "Enviando...";
 

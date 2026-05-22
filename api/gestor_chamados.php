@@ -8,6 +8,7 @@ header('Content-Type: application/json');
 //     exit;
 // }
 
+$status = isset($_GET['status']) && !empty($_GET['status']) ? $_GET['status'] : '';
 
 $sql = "SELECT
            c.id_chamado AS id, 
@@ -21,7 +22,13 @@ $sql = "SELECT
         LEFT JOIN usuarios u1 ON c.id_solicitante = u1.id_usuario
         LEFT JOIN usuarios u2 ON c.id_tecnico = u2.id_usuario
         LEFT JOIN ambientes a ON c.id_ambiente = a.id_ambiente
-        left join blocos b on a.id_bloco = b.id_bloco;";
+        left join blocos b on a.id_bloco = b.id_bloco";
+
+if ($status !== '') {
+    $sql .= " WHERE c.status = '$status'";
+}
+
+$sql .= " ORDER BY c.id_chamado DESC";
 
 $result = $conn->query($sql);
 $chamados = $result->fetch_all(MYSQLI_ASSOC);

@@ -284,7 +284,7 @@
 
             <div class="col-lg-3">
 
-                <div class="tech-sidebar">
+                <div class="sidebar">
 
                     <div class="sidebar-glow"></div>
 

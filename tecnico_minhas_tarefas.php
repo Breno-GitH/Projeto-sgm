@@ -452,6 +452,14 @@ async function carregarTarefas() {
 
                 </div>
 
+                <a href="tecnico_detalhes.php?id=${t.id_chamado}" class="btn-open">
+
+                    <i class="bi bi-arrow-right-circle"></i>
+
+                    Abrir
+
+                </a>
+
             </div>
 
         `).join('');
