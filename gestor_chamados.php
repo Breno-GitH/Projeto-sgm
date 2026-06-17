@@ -347,13 +347,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_perfil'] !== 'gestor') {
                 </a>
 
                 <a class="nav-link active"
-                href="gestor_locais.php">
-
-                    Locais
-
-                </a>
-
-                <a class="nav-link active"
                 href="api/logout.php">
 
                     Sair

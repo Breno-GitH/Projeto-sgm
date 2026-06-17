@@ -9,11 +9,25 @@ if(!isset($_SESSION['user_id']) || $_SESSION['user_perfil'] !== 'solicitante'){
 
 $id_usuario = $_SESSION['user_id'];
 
-$sql = "SELECT c.id_chamado, c.descricao_problema, c.status, c.data_abertura, a.nome as nome_ambiente, ca.caminho_arquivo
+$sql = "SELECT
+            c.id_chamado,
+            c.descricao_problema,
+            c.status,
+            c.data_abertura,
+            a.nome as nome_ambiente,
+            ca.caminho_arquivo
+
         FROM chamados c
-        JOIN ambientes a ON c.id_ambiente = a.id_ambiente
-        LEFT JOIN chamados_anexos ca ON c.id_chamado = ca.id_chamado
+
+        JOIN ambientes a
+        ON c.id_ambiente = a.id_ambiente
+
+        LEFT JOIN chamados_anexos ca
+        ON c.id_chamado = ca.id_chamado
+        AND ca.tipo_anexo = 'abertura'
+
         WHERE c.id_solicitante = $id_usuario
+
         ORDER BY c.id_chamado DESC";
 
 $resultado = $conn->query($sql);

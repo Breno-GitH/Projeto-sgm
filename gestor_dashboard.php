@@ -323,6 +323,13 @@
                         <span>Usuários</span>
 
                     </a>
+                    <a href="gestor_avaliacao.php" class="side-item">
+
+                       <i class="bi bi-person"></i>
+
+                        <span>Conclusão dos tecnicos</span>
+                    </a>
+
 
                 </div>
 
