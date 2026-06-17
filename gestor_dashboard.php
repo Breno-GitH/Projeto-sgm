@@ -330,6 +330,11 @@
                         <span>Conclusão dos tecnicos</span>
                     </a>
 
+                    <a href="gestor_feedbacks.php" class="side-item">
+                       <i class="bi bi-chat-left-heart"></i>
+                       <span>Feedbacks recebidos</span>
+                    </a>
+
 
                 </div>
 
@@ -348,7 +353,7 @@
 
                     <div class="col-md-4">
 
-                        <div class="card card-stat bg-primary text-white shadow-lg">
+                        <div class="card card-stat bg-primary-subtle text-primary-emphasis shadow-lg">
 
                             <div class="card-body p-4">
 
@@ -379,7 +384,7 @@
 
                     <div class="col-md-4">
 
-                        <div class="card card-stat bg-warning text-dark shadow-lg">
+                        <div class="card card-stat bg-warning-subtle text-warning-emphasis shadow-lg">
 
                             <div class="card-body p-4">
 
@@ -410,7 +415,7 @@
 
                     <div class="col-md-4">
 
-                        <div class="card card-stat bg-danger text-white shadow-lg">
+                        <div class="card card-stat bg-danger-subtle text-danger-emphasis shadow-lg">
 
                             <div class="card-body p-4">
 
