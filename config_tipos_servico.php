@@ -322,10 +322,10 @@
 
                 </a>
 
-                <a href="painel.php"
+                 <a href="api/logout.php"
                 class="btn btn-outline-light btn-sm rounded-3">
 
-                    Painel
+                    Sair
 
                 </a>
 
